@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './componets/Header'
 import ListadoGastos from './componets/ListadoGastos';
 import Modal from './componets/Modal';
@@ -14,6 +14,14 @@ function App() {
 
   const [modal,  setModal] = useState(false)
   const [animarModal,  setAnimarModal] = useState(false)
+
+  const [gastoEditar, setGastoEditar] = useState({})
+
+  useEffect(() => {
+    if( Object.keys(gastoEditar).length > 0 ) {
+        handleNuevoGasto()
+    }  
+  }, [ gastoEditar ])
 
 
   const handleNuevoGasto = () => {
@@ -51,6 +59,7 @@ function App() {
             <main>
               <ListadoGastos 
                   gastos={gastos}
+                  setGastoEditar={setGastoEditar}
               />
             </main>
             <div className='nuevo-gasto'>
